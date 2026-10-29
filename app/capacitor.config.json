@@ -1,0 +1,37 @@
+{
+  "appId": "com.technovaos.motors",
+  "appName": "TechNova Motors",
+  "webDir": "mobile/www",
+  "server": {
+    "url": "https://motors.technovaos.com/auth",
+    "androidScheme": "https",
+    "errorPath": "offline.html"
+  },
+  "ios": {
+    "appendUserAgent": "TechNovaMotorsApp",
+    "contentInset": "always",
+    "backgroundColor": "#0E1320"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 1200,
+      "backgroundColor": "#0E1320",
+      "showSpinner": false
+    },
+    "SystemBars": {
+      "style": "DARK"
+    },
+    "StatusBar": {
+      "style": "DARK",
+      "backgroundColor": "#0E1320",
+      "overlaysWebView": false
+    },
+    "PushNotifications": {
+      "presentationOptions": [
+        "badge",
+        "sound",
+        "alert"
+      ]
+    }
+  }
+}
