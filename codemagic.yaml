@@ -1,0 +1,36 @@
+workflows:
+  technova-motors-ios:
+    name: TechNova Motors iOS
+    max_build_duration: 120
+    instance_type: mac_mini_m2
+    environment:
+      node: latest
+      xcode: latest
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.technovaos.motors
+      vars:
+        XCODE_PROJECT: "app/ios/App/App.xcodeproj"
+        XCODE_SCHEME: "App"
+    scripts:
+      - name: Install Node dependencies
+        script: |
+          cd "$CM_BUILD_DIR/app"
+          npm install
+      - name: Sync Capacitor iOS project
+        script: |
+          cd "$CM_BUILD_DIR/app"
+          npx cap sync ios
+      - name: Configure iOS code signing
+        script: |
+          xcode-project use-profiles
+      - name: Build signed IPA
+        script: |
+          xcode-project build-ipa \
+            --project "$CM_BUILD_DIR/$XCODE_PROJECT" \
+            --scheme "$XCODE_SCHEME"
+    artifacts:
+      - app/ios/App/build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
